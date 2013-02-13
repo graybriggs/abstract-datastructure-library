@@ -17,7 +17,6 @@ list* init_list()
 void insert_rear(list* head, void* data)
 {
 	list* new_node;
-	float* f;
 
 	if (head->next == NULL) {
 		new_node = (list*)malloc(sizeof(list));
@@ -39,7 +38,6 @@ void insert_rear(list* head, void* data)
 		temp->next = new_node;
 		++head->size;
 	}
-	f = (float*)new_node->data;
 }
 
 
@@ -96,15 +94,11 @@ int delete_at(list* head, int pos)
 	list* cur;
 	list* save_node;
 	int counter = 0;
-	while (counter != pos - 1) {
+
+	while (counter < pos) {
 		temp = temp->next;
-		++counter;
 	}
-	cur = temp;
-	save_node = temp->next->next;
-	temp = temp->next;
-	free(temp->data);
-	free(temp);
+
 	cur->next = save_node;
 }
 
