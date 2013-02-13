@@ -35,7 +35,7 @@ extern void insert_at(list*, void* data, int pos);
 extern void* get_at(list*, int pos);
 
 /* delete_at - deletes element in list at position pos
-   returns 0 on deletion success, -1 on fail
+   returns 0 on deletion success, -1 on out of list size range (ie. fail)
  */
 
 extern int delete_at(list*, int pos);
@@ -53,8 +53,6 @@ extern size_t size(list*);
 extern void delete_list(list*);
 
 
-/* Debug */
-extern void print_list(list*);
 
 
 #endif // LIST_H

@@ -91,15 +91,35 @@ void* get_at(list* head, int pos)
 int delete_at(list* head, int pos)
 {
 	list* temp = head->next;
-	list* cur;
-	list* save_node;
-	int counter = 0;
+	list* save;
+	int counter = 1;
 
-	while (counter < pos) {
-		temp = temp->next;
+	if (pos == 0) {
+		head->next = temp->next;
+		printf("Deleting position 0: %f\n", (*(float*)temp->data));
+		free(temp->data);
+		free(temp);
+		--head->size;
+		return 0;
+	}
+	else if (pos > size(head) - 1) {
+		return -1;
+	}
+	else {
+		while (counter < pos) {
+			temp = temp->next;
+			counter++;
+		}
+		
+		save = temp->next->next;
+		printf("Deleting %f\n", (*(float*)temp->next->data));
+		free(temp->next->data);
+		free(temp->next);
+		temp->next = save;
+		--head->size;
+		return 0;
 	}
 
-	cur->next = save_node;
 }
 
 int is_empty(list* head)
@@ -114,27 +134,9 @@ size_t size(list* head)
 
 void delete_list(list* head)
 {
-	list* cur;
-	if (head->next != NULL) {
-		cur = head->next;
-		while (cur->next != NULL) {
-			list* temp = cur->next;
-			free(cur->data);
-			free(cur);
-			cur = temp;
-		}
-		free(cur->data);
-		free(cur);
-	}
+	while (head->next)
+		delete_at(head, size(head) - 1);
+
 	free(head);
-}
-
-/**********/
-
-void print_list(list* in_list)
-{
-	list* temp = in_list;
-	while (temp->next != NULL) {
-		printf("%d\n", temp->data);
-	}
+	
 }
