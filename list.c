@@ -61,6 +61,37 @@ void insert_front(list* head, void* data)
 }
 
 
+void insert_at(list* head, void* data, int pos)
+{
+	list* temp = head->next;
+	list* save;
+	list* new_node;
+
+	if (pos == 0) {
+		new_node = (list*)malloc(sizeof(list*));
+		new_node->next = head->next;
+		new_node->data = data;
+		head->next = new_node;
+		++head->size;
+	}
+	else {
+		int counter = 1;
+
+		while (counter < pos) {
+			temp = temp->next;
+			++counter;
+		}
+		save = temp->next;
+		new_node = (list*)malloc(sizeof(list));
+		new_node->data = data;
+		new_node->next = save;
+		temp->next = new_node;
+		++head->size;
+	}
+
+}
+
+
 void* get_at(list* head, int pos)
 {
 	list* temp;
@@ -94,16 +125,17 @@ int delete_at(list* head, int pos)
 	list* save;
 	int counter = 1;
 
-	if (pos == 0) {
+	// out of list range
+	if (pos > size(head) - 1) {
+		return -1;
+	}
+	else if (pos == 0) {
 		head->next = temp->next;
 		printf("Deleting position 0: %f\n", (*(float*)temp->data));
 		free(temp->data);
 		free(temp);
 		--head->size;
 		return 0;
-	}
-	else if (pos > size(head) - 1) {
-		return -1;
 	}
 	else {
 		while (counter < pos) {
@@ -134,9 +166,12 @@ size_t size(list* head)
 
 void delete_list(list* head)
 {
-	while (head->next)
-		delete_at(head, size(head) - 1);
+	int s = size(head);
 
-	free(head);
-	
+	while (s >= 0) {
+		delete_at(head, s);
+		s--;
+	}
+
+	//free(head);
 }
