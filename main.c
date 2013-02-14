@@ -2,15 +2,9 @@
 #include <stdio.h>
 
 #include "list.h"
+#include "debug.h"
 
-void print_debug_float(list* lst, int pos)
-{
-	float* v = (float*)get_at(lst,pos);
-	if (v == NULL)
-		printf("FAIL\n");
-	else
-		printf(">> %f\n", *v);
-}
+
 
 int main()
 {
@@ -39,19 +33,21 @@ int main()
 	*f = 5.55f;
 	insert_rear(lst, f);
 
-	print_debug_float(lst,0);
-	print_debug_float(lst,1);
-	print_debug_float(lst,2);
-	print_debug_float(lst,3);
-	print_debug_float(lst,4);
 
-	//delete_at(lst, 4);
 
-	print_debug_float(lst,0);
-	print_debug_float(lst,1);
-	print_debug_float(lst,2);
-	print_debug_float(lst,3);
-	print_debug_float(lst,4);
+	dbg_print_float_list(lst);
+
+	printf("-----------------\n");
+
+	f = (float*)malloc(sizeof(float));
+	*f = 7.77f;
+	insert_at(lst, f, 2);
+	delete_at(lst, 2);
+	f = (float*)malloc(sizeof(float));
+	*f = 8.88f;
+	insert_at(lst, f, 4);
+
+	dbg_print_float_list(lst);
 
 	delete_list(lst);
 
