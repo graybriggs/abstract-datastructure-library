@@ -173,5 +173,5 @@ void delete_list(list* head)
 		s--;
 	}
 
-	//free(head);
+	free(head);
 }
