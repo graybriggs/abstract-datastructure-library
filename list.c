@@ -2,9 +2,9 @@
 
 #include "list.h"
 
-list* init_list()
+list_s* init_list_s()
 {
-	list* head = (list*)malloc(sizeof(list));
+	list_s* head = (list_s*)malloc(sizeof(list));
 	head->next = NULL;
 	head->data = NULL;
 	head->size = 0;
@@ -14,25 +14,25 @@ list* init_list()
 
 /* since a singly linked list, must iterate over the entire list to rear
    O(n) */
-void insert_rear(list* head, void* data)
+void insert_rear_s(list_s* head, void* data)
 {
-	list* new_node;
+	list_s* new_node;
 
 	if (head->next == NULL) {
-		new_node = (list*)malloc(sizeof(list));
+		new_node = (list_s*)malloc(sizeof(list));
 		new_node->next = NULL;
 		new_node->data = data;
 		head->next = new_node;
 		++head->size;
 	}
 	else {
-		list* temp = head->next;
+		list_s* temp = head->next;
 
 		while (temp->next != NULL) {
 			temp = temp->next;
 		}
 
-		new_node = (list*)malloc(sizeof(list));
+		new_node = (list_s*)malloc(sizeof(list));
 		new_node->next = NULL;
 		new_node->data = data;
 		temp->next = new_node;
@@ -41,7 +41,7 @@ void insert_rear(list* head, void* data)
 }
 
 
-void insert_front(list* head, void* data)
+void insert_front_s(list* head, void* data)
 {
 	if (head->next == NULL) {
 		list* new_node = (list*)malloc(sizeof(list));
@@ -61,14 +61,14 @@ void insert_front(list* head, void* data)
 }
 
 
-void insert_at(list* head, void* data, int pos)
+void insert_at_s(list_s* head, void* data, int pos)
 {
-	list* temp = head->next;
-	list* save;
-	list* new_node;
+	list_s* temp = head->next;
+	list_s* save;
+	list_s* new_node;
 
 	if (pos == 0) {
-		new_node = (list*)malloc(sizeof(list*));
+		new_node = (list_s*)malloc(sizeof(list_s*));
 		new_node->next = head->next;
 		new_node->data = data;
 		head->next = new_node;
@@ -82,7 +82,7 @@ void insert_at(list* head, void* data, int pos)
 			++counter;
 		}
 		save = temp->next;
-		new_node = (list*)malloc(sizeof(list));
+		new_node = (list_s*)malloc(sizeof(list));
 		new_node->data = data;
 		new_node->next = save;
 		temp->next = new_node;
@@ -92,9 +92,9 @@ void insert_at(list* head, void* data, int pos)
 }
 
 
-void* get_at(list* head, int pos)
+void* get_at_s(list_s* head, int pos)
 {
-	list* temp;
+	list_s* temp;
 	int counter;
 	if (head == NULL) {
 		return NULL;
@@ -119,7 +119,7 @@ void* get_at(list* head, int pos)
 }
 
 
-int delete_at(list* head, int pos)
+int delete_at_s(list* head, int pos)
 {
 	list* temp = head->next;
 	list* save;
@@ -154,17 +154,17 @@ int delete_at(list* head, int pos)
 
 }
 
-int is_empty(list* head)
+int is_empty_s(list_s* head)
 {
 	(head->next == NULL) ? 1 : 0;
 }
 
-size_t size(list* head)
+size_t size_s(list_s* head)
 {
 	return head->size;
 }
 
-void delete_list(list* head)
+void delete_list_s(list_s* head)
 {
 	int s = size(head);
 

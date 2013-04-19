@@ -5,54 +5,66 @@
 #include <stdlib.h>
 #include <assert.h>
 
-struct _list {
-	struct _list* next;
+struct _list_s {
+	struct _list_s* next;
 	void* data;
 	size_t size;
 };
 
-typedef struct _list list;
+typedef struct _list_s list_s;
 
 
 /* creates a head for the list and returns a pointer to its location */
 
-extern list* init_list();
+extern list_s* init_list_s();
 
 /* insert_rear - insert data at the rear of the list */
 
-extern void insert_rear(list*, void* data);
+extern void insert_rear_s(list_s*, void* data);
 
 /* insert_front - insert data at the front of the list */
 
-extern void insert_front(list*, void* data);
+extern void insert_front_s(list_s*, void* data);
 
 /* insert_at - insert data at pos position */
 
-extern void insert_at(list*, void* data, int pos);
+extern void insert_at_s(list_s*, void* data, int pos);
 
 /* get_at - return NULL on empty list else return data at pos */
 
-extern void* get_at(list*, int pos);
+extern void* get_at_s(list_s*, int pos);
 
 /* delete_at - deletes element in list at position pos
    returns 0 on deletion success, -1 on out of list size range (ie. fail)
  */
 
-extern int delete_at(list*, int pos);
+extern int delete_at(list_s*, int pos);
 
 /* is_empty - returns 1 if empty 0 othewise */
 
-extern int is_empty(list*);
+extern int is_empty_s(list_s*);
 
 /* size - returns size of current list */
 
-extern size_t size(list*);
+extern size_t size_s(list_s*);
 
 /* deletes entire list and its contents */
 
-extern void delete_list(list*);
+extern void delete_list_s(list_s*);
 
+////////////////////////
+/* Doubly linked list */
+///////////////////////
 
+extern int init_list_d(list_d*);
+extern int insert_front_d(list_d*);
+extern int insert_rear_d(list_d*);
+extern int insert_at_d(list_d*, void* data, int pos);
+extern void* get_at_d(list_d*, int pos);
+extern int delete_at_d(list_d*, int pos);
+extern int is_empty_d(list_d*);
+extern size_t size_d(list_d*);
+extern int delete_list_d(list*);
 
 
 #endif // LIST_H
