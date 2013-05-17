@@ -58,21 +58,27 @@ extern void delete_list_s(list_s*);
 
 
 struct _list_d {
-  struct _list_d* next;
-  struct _list_d* previous;
+  struct _list_d* head;
+  struct _list_d* tail;
   void* data;
   size_t size;
 };
 
 typedef struct _list_d list_d;
 
+/* init_list_d - initialises head and tail nodes for doubly linked list. Returns -1 on failure, 1 on sucess */
 extern int init_list_d(list_d*);
-extern int insert_front_d(list_d*);
-extern int insert_rear_d(list_d*);
+
+
+extern int insert_front_d(list_d*, void*);
+extern int insert_rear_d(list_d*, void*);
 extern int insert_at_d(list_d*, void* data, int pos);
 extern void* get_at_d(list_d*, int pos);
 extern int delete_at_d(list_d*, int pos);
+
+/* is_empty_d -  returns 1 if the list is empty, 0 if not */
 extern int is_empty_d(list_d*);
+
 extern size_t size_d(list_d*);
 extern int delete_list_d(list_d*);
 
