@@ -6,9 +6,9 @@
 #include <assert.h>
 
 struct _list_s {
-	struct _list_s* next;
-	void* data;
-	size_t size;
+  struct _list_s* next;
+  void* data;
+  size_t size;
 };
 
 typedef struct _list_s list_s;
@@ -56,6 +56,16 @@ extern void delete_list_s(list_s*);
 /* Doubly linked list */
 ///////////////////////
 
+
+struct _list_d {
+  struct _list_d* next;
+  struct _list_d* previous;
+  void* data;
+  size_t size;
+};
+
+typedef struct _list_d list_d;
+
 extern int init_list_d(list_d*);
 extern int insert_front_d(list_d*);
 extern int insert_rear_d(list_d*);
@@ -64,7 +74,7 @@ extern void* get_at_d(list_d*, int pos);
 extern int delete_at_d(list_d*, int pos);
 extern int is_empty_d(list_d*);
 extern size_t size_d(list_d*);
-extern int delete_list_d(list*);
+extern int delete_list_d(list_d*);
 
 
 #endif // LIST_H
