@@ -207,6 +207,7 @@ void delete_list_s(list_s* head)
 int init_list_d(list_d* list)
 {
   assert(list == NULL);
+
   list->head = malloc(sizeof(list_d));
   list->tail = malloc(sizeof(list_d));
 
@@ -217,14 +218,14 @@ int init_list_d(list_d* list)
   list->head->next = tail;
   list->head->previous = NULL;
   list->head->data = NULL;  // this value should not be modified again
-  list->size = NULL;  // this value should not be modified again
+  list->head.size = 0;  // this value should not be modified again
   list->data = NULL;
   list->size = 0;
 
   list->tail->next = NULL;
   list->tail->previous = head;
   list->tail->data = NULL; // this value should not be modified again
-  list->tail->size = 0;  // this value should not be modified again
+  list->tail.size = 0;  // this value should not be modified again
   list->data = NULL;
   list->size = 0;
 
@@ -244,16 +245,23 @@ int insert_front_d(list_d* list, void* data)
     new_node->next = NULL;
     new_node->previous = head;
     new_node->data = data;
-    ++new_node->size;
 
-    head->next = new_node;
-    head->previous = NULL; // remains same
+    list->head->next = new_node;
+    list->head->previous = NULL; // remains same
+    ++list->head.size;
   }
   else {
     new_node->next = head->next;
-    new_node->previous = head
-  }
+    new_node->previous = list->head;
+    new_node->data = data;
+    ++new_node.size;
 
+    list->head->next = new_node;
+    list->tail->previous = new_node;
+    ++list->head.size;
+    ++list->tail.size;
+  }
+  return 1;
 }
 
 int is_empty_d(list_d* list)
