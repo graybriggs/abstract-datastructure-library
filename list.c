@@ -241,14 +241,18 @@ int insert_front_d(list_d* list, void* data)
     return -1;
   }
 
-  if (list->head->next == NULL) {
-    new_node->next = NULL;
-    new_node->previous = head;
+  if (list->head->next == list->tail) {
+    new_node->next = list->tail;
+    new_node->previous = list->head;
     new_node->data = data;
 
     list->head->next = new_node;
     list->head->previous = NULL; // remains same
     ++list->head.size;
+
+    list->tail->next = NULL; // remains same
+    list->tail->previous = new_node;
+    ++list->tail.size;
   }
   else {
     new_node->next = head->next;
