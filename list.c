@@ -3,17 +3,17 @@
 #include "list.h"
 
 
-// I'm debating whether to change this init function to:
-// int init_list_s(list_s*);
-
-list_s* init_list_s()
+int init_list_s(list_s* head)
 {
-	list_s* head = (list_s*)malloc(sizeof(list));
+	head = (list_s*)malloc(sizeof(list));
+	if (head == NULL) {
+	  return -1;
+	}
 	head->next = NULL;
 	head->data = NULL;
 	head->size = 0;
 
-	return head;
+	return 1;
 }
 
 /* since a singly linked list, must iterate over the entire list to rear
@@ -241,7 +241,7 @@ int insert_front_d(list_d* list, void* data)
     return -1;
   }
 
-  if (list->head->next == list->tail) {
+  if (list->head->next == list->tail) { // empty list
     new_node->next = list->tail;
     new_node->previous = list->head;
     new_node->data = data;
@@ -253,6 +253,8 @@ int insert_front_d(list_d* list, void* data)
     list->tail->next = NULL; // remains same
     list->tail->previous = new_node;
     ++list->tail.size;
+    
+    ++list->size;
   }
   else {
     new_node->next = head->next;
@@ -263,6 +265,38 @@ int insert_front_d(list_d* list, void* data)
     list->head->next = new_node;
     list->tail->previous = new_node;
     ++list->head.size;
+    ++list->tail.size;
+  }
+  return 1;
+}
+
+int insert_rear_d(list_d* list, void* data)
+{
+  assert(list != NULL);
+  assert(data != NULL);
+
+  list_d* new_node = malloc(sizeof(list_d));
+  if (new_node == NULL) {
+    return -1;
+  }
+
+  if (list->tail->previous == list->head) { // empty list
+    list->head->next = new_node;
+    list->head->previous = NULL; // remains same
+    list->tail->next = NULL; // remains same
+    list->tail->previous = new_node;
+    list->data = data;
+    ++list->size;
+  }
+  else {
+    new_node->next = tail;
+    new_node->previous = list->tail->previous;
+    new_node->data = data;
+    
+    ++list->head.size;
+
+    list->tail->previous = new_node;
+    list->tail->next = NULL; // remains same
     ++list->tail.size;
   }
   return 1;
