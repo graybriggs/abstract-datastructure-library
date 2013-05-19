@@ -16,7 +16,7 @@ typedef struct _list_s list_s;
 
 /* creates a head for the list and returns a pointer to its location */
 
-extern list_s* init_list_s();
+extern int init_list_s(list_s*);
 
 /* insert_rear - insert data at the rear of the list */
 
@@ -69,9 +69,13 @@ typedef struct _list_d list_d;
 /* init_list_d - initialises head and tail nodes for doubly linked list. Returns -1 on failure, 1 on sucess */
 extern int init_list_d(list_d*);
 
-
+/* insert_front_d - inserts a node at the front of the list. Returns 1 on success, -1 on failure. */
 extern int insert_front_d(list_d*, void*);
+
+/* insert_rear_d - inserts a node at the rear of the list. Returns 1 on success, -1 on failure. */
 extern int insert_rear_d(list_d*, void*);
+
+
 extern int insert_at_d(list_d*, void* data, int pos);
 extern void* get_at_d(list_d*, int pos);
 extern int delete_at_d(list_d*, int pos);
