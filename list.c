@@ -5,7 +5,7 @@
 
 int init_list_s(list_s* head)
 {
-	head = (list_s*)malloc(sizeof(list));
+	head = (list_s*)malloc(sizeof(list_s));
 	if (head == NULL) {
 	  return -1;
 	}
@@ -26,7 +26,7 @@ void insert_rear_s(list_s* head, void* data)
   list_s* new_node;
 
   if (head->next == NULL) {
-    new_node = (list_s*)malloc(sizeof(list));
+    new_node = (list_s*)malloc(sizeof(list_s));
     new_node->next = NULL;
     new_node->data = data;
     head->next = new_node;
@@ -39,7 +39,7 @@ void insert_rear_s(list_s* head, void* data)
       temp = temp->next;
     }
 
-    new_node = (list_s*)malloc(sizeof(list));
+    new_node = (list_s*)malloc(sizeof(list_s));
     new_node->next = NULL;
     new_node->data = data;
     temp->next = new_node;
@@ -48,21 +48,21 @@ void insert_rear_s(list_s* head, void* data)
 }
 
 
-void insert_front_s(list* head, void* data)
+void insert_front_s(list_s* head, void* data)
 {
   assert(head != NULL);
   assert(data != NULL);
 
   if (head->next == NULL) {
-    list* new_node = (list*)malloc(sizeof(list));
+    list_s* new_node = (list_s*)malloc(sizeof(list_s));
     new_node->next = NULL;
     new_node->data = data;
     head->next = new_node;
     ++head->size;
   }
   else {
-    list* temp = head->next;
-    list* new_node = (list*)malloc(sizeof(list));
+    list_s* temp = head->next;
+    list_s* new_node = (list_s*)malloc(sizeof(list_s));
     new_node->next = temp;
     new_node->data = data;
     head->next = new_node;
@@ -95,7 +95,7 @@ void insert_at_s(list_s* head, void* data, int pos)
       ++counter;
     }
     save = temp->next;
-    new_node = (list_s*)malloc(sizeof(list));
+    new_node = (list_s*)malloc(sizeof(list_s));
     new_node->data = data;
     new_node->next = save;
     temp->next = new_node;
@@ -134,12 +134,12 @@ void* get_at_s(list_s* head, int pos)
 }
 
 
-int delete_at_s(list* head, int pos)
+int delete_at_s(list_s* head, int pos)
 {
   assert(head != NULL);
 
-  list* temp = head->next;
-  list* save;
+  list_s* temp = head->next;
+  list_s* save;
   int counter = 1;
 
   // out of list range
@@ -215,7 +215,7 @@ int init_list_d(list_d* list)
     return -1;
   }
 
-  list->head->next = tail;
+  list->head->next = list->tail;
   list->head->previous = NULL;
   list->head->data = NULL;  // this value should not be modified again
   list->head.size = 0;  // this value should not be modified again
@@ -223,7 +223,7 @@ int init_list_d(list_d* list)
   list->size = 0;
 
   list->tail->next = NULL;
-  list->tail->previous = head;
+  list->tail->previous = list->head;
   list->tail->data = NULL; // this value should not be modified again
   list->tail.size = 0;  // this value should not be modified again
   list->data = NULL;
@@ -302,6 +302,50 @@ int insert_rear_d(list_d* list, void* data)
   return 1;
 }
 
+void* get_front_d(list_d* list)
+{
+  assert(list != NULL);
+  
+  list_d* temp;
+
+  if (list->head->next == tail) { // empty list
+    return NULL;
+  }
+  else {
+    // pointer to the first list element that will be removed
+    temp = list->head->next;
+
+    // point the head to the second list element 
+    list->head->next = temp->next;
+    list* new_first_node = temp;
+    // point the second list element to the head
+    new_first_node->previous = head;
+  }
+  return temp;
+}
+
+extern void* get_rear_d(list_d* list)
+{
+  assert(list_d != NULL);
+
+  list_d* temp;
+
+  if (list->head->next == tail) { // empty list
+    return NULL;
+  }
+  else {
+    // pointer to last list element that will be removed
+    temp = list->tail->previous;
+
+    // point the tail to the penultimate list element
+    list->tail->previous = temp->previous;
+    list* new_last_node = temp;
+    // point the penultimate list element to the tail
+    new_last_node->next = tail;
+  }
+  return temp;
+}
+
 int is_empty_d(list_d* list)
 {
   assert(list != NULL);
@@ -311,5 +355,15 @@ int is_empty_d(list_d* list)
   }
   else {
     return 0;
+  }
+}
+
+size_t size_d(list_d* list)
+{
+  if (list->head.size == list->tail.size) {
+    return list->head.size; // this should always be returned if the impelemtation is correct.
+  }
+  else {
+    return -1;
   }
 }
