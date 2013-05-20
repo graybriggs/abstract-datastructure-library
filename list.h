@@ -34,6 +34,10 @@ extern void insert_at_s(list_s*, void* data, int pos);
 
 extern void* get_at_s(list_s*, int pos);
 
+extern void* get_front_s(list_s*);
+extern void* get_back_s(list_s*);
+
+
 /* delete_at - deletes element in list at position pos
    returns 0 on deletion success, -1 on out of list size range (ie. fail)
  */
@@ -56,10 +60,16 @@ extern void delete_list_s(list_s*);
 /* Doubly linked list */
 ///////////////////////
 
+struct _node {
+  struct _node next;
+  struct _node previous;
+};
 
 struct _list_d {
-  struct _list_d* head;
-  struct _list_d* tail;
+  struct _node head;
+  struct _node tail;
+  //struct _list_d* head;
+  //struct _list_d* tail;
   void* data;
   size_t size;
 };
@@ -75,15 +85,22 @@ extern int insert_front_d(list_d*, void*);
 /* insert_rear_d - inserts a node at the rear of the list. Returns 1 on success, -1 on failure. */
 extern int insert_rear_d(list_d*, void*);
 
-
+/* insert_at_d - O(n) - inserts data at pos position. Returns 1 on success, -1 on failure */
 extern int insert_at_d(list_d*, void* data, int pos);
-extern void* get_at_d(list_d*, int pos);
+
+extern void* get_front_d(list_d*);
+extern void* get_back_d(list_d*);
+
+/* delete_at_d - O(n) - deletes element in list at pos position. Returns 1 on success, -1 on failure */
 extern int delete_at_d(list_d*, int pos);
 
 /* is_empty_d -  returns 1 if the list is empty, 0 if not */
 extern int is_empty_d(list_d*);
 
+/* returns the amount of nodes created in the list - the size. Returns -1 if there was an inconsistency found */
 extern size_t size_d(list_d*);
+
+
 extern int delete_list_d(list_d*);
 
 
