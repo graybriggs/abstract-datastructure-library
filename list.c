@@ -306,44 +306,14 @@ void* get_front_d(list_d* list)
 {
   assert(list != NULL);
   
-  list_d* temp;
-
-  if (list->head->next == tail) { // empty list
-    return NULL;
-  }
-  else {
-    // pointer to the first list element that will be removed
-    temp = list->head->next;
-
-    // point the head to the second list element 
-    list->head->next = temp->next;
-    list* new_first_node = temp;
-    // point the second list element to the head
-    new_first_node->previous = head;
-  }
-  return temp;
+  return list->head->next;
 }
 
 extern void* get_rear_d(list_d* list)
 {
   assert(list_d != NULL);
 
-  list_d* temp;
-
-  if (list->head->next == tail) { // empty list
-    return NULL;
-  }
-  else {
-    // pointer to last list element that will be removed
-    temp = list->tail->previous;
-
-    // point the tail to the penultimate list element
-    list->tail->previous = temp->previous;
-    list* new_last_node = temp;
-    // point the penultimate list element to the tail
-    new_last_node->next = tail;
-  }
-  return temp;
+  return list->tail->previous;
 }
 
 int is_empty_d(list_d* list)
