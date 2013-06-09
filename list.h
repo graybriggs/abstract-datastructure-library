@@ -50,6 +50,7 @@ extern iterator erase_between(list*, iterator, iterator); // think of a better n
 extern void clear(list*);
 extern int empty(list*);
 extern int delete_list(list*);
+extern size_t size(list*);
 
 
 #endif // LIST_H
