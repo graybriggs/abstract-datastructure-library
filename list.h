@@ -5,32 +5,19 @@
 #include <stdlib.h>
 #include <assert.h>
 
-struct _list_s {
-  struct _list_s* next;
-  void* data;
-  size_t size;
-};
-
-typedef struct _list_s list_s;
-
-
-////////////////////////
-/* Doubly linked list */
-///////////////////////
-
 struct _node {
   struct _node next;
   struct _node previous;
 };
 
-struct _list_d {
+struct _list {
   struct _node head;
   struct _node tail;
   void* data;
   size_t size;
 };
 
-typedef struct _list_d list_d;
+typedef struct _list list;
 
 //////////// Iterator for list //////
 
