@@ -2,338 +2,55 @@
 
 #include "list.h"
 
-
-int init_list_s(list_s* head)
-{
-	head = (list_s*)malloc(sizeof(list_s));
-	if (head == NULL) {
-	  return -1;
-	}
-	head->next = NULL;
-	head->data = NULL;
-	head->size = 0;
-
-	return 1;
-}
-
-/* since a singly linked list, must iterate over the entire list to rear
-   O(n) */
-void insert_rear_s(list_s* head, void* data)
-{
-  assert(head != NULL);
-  assert(data != NULL);
-
-  list_s* new_node;
-
-  if (head->next == NULL) {
-    new_node = (list_s*)malloc(sizeof(list_s));
-    new_node->next = NULL;
-    new_node->data = data;
-    head->next = new_node;
-    ++head->size;
-  }
-  else {
-    list_s* temp = head->next;
-
-    while (temp->next != NULL) {
-      temp = temp->next;
-    }
-
-    new_node = (list_s*)malloc(sizeof(list_s));
-    new_node->next = NULL;
-    new_node->data = data;
-    temp->next = new_node;
-    ++head->size;
-  }
-}
-
-
-void insert_front_s(list_s* head, void* data)
-{
-  assert(head != NULL);
-  assert(data != NULL);
-
-  if (head->next == NULL) {
-    list_s* new_node = (list_s*)malloc(sizeof(list_s));
-    new_node->next = NULL;
-    new_node->data = data;
-    head->next = new_node;
-    ++head->size;
-  }
-  else {
-    list_s* temp = head->next;
-    list_s* new_node = (list_s*)malloc(sizeof(list_s));
-    new_node->next = temp;
-    new_node->data = data;
-    head->next = new_node;
-    ++head->size;
-  }
-}
-
-
-void insert_at_s(list_s* head, void* data, int pos)
-{
-  assert(head != NULL);
-  assert(data != NULL);
-
-  list_s* temp = head->next;
-  list_s* save;
-  list_s* new_node;
-
-  if (pos == 0) {
-    new_node = (list_s*)malloc(sizeof(list_s*));
-    new_node->next = head->next;
-    new_node->data = data;
-    head->next = new_node;
-    ++head->size;
-  }
-  else {
-    int counter = 1;
-
-    while (counter < pos) {
-      temp = temp->next;
-      ++counter;
-    }
-    save = temp->next;
-    new_node = (list_s*)malloc(sizeof(list_s));
-    new_node->data = data;
-    new_node->next = save;
-    temp->next = new_node;
-    ++head->size;
-  }
-}
-
-
-void* get_at_s(list_s* head, int pos)
-{
-  assert(head != NULL);
-
-  list_s* temp;
-  int counter;
-  
-  if (head == NULL) {
-    return NULL;
-  }
-  temp = head->next;
-  counter = 0;
-  if (pos >= size(head)) { // position is outside list boundary
-    printf("outside boundary\n");
-    return NULL;
-  }
-  else if (!is_empty(head)) {  // empty list
-    printf("empty\n");
-    return NULL;
-  }
-  else {
-    while (counter < pos) {
-      temp = temp->next;
-      ++counter;
-    }
-    return temp->data;
-  }
-}
-
-
-int delete_at_s(list_s* head, int pos)
-{
-  assert(head != NULL);
-
-  list_s* temp = head->next;
-  list_s* save;
-  int counter = 1;
-
-  // out of list range
-  if (pos > size(head) - 1) {
-    return -1;
-  }
-  else if (pos == 0) {
-    head->next = temp->next;
-    printf("Deleting position 0: %f\n", (*(float*)temp->data));
-    free(temp->data);
-    free(temp);
-    --head->size;
-    return 0;
-  }
-  else {
-    while (counter < pos) {
-      temp = temp->next;
-      counter++;
-    }
-		
-    save = temp->next->next;
-    printf("Deleting %f\n", (*(float*)temp->next->data));
-    free(temp->next->data);
-    free(temp->next);
-    temp->next = save;
-    --head->size;
-    return 0;
-  }
-}
-
-int is_empty_s(list_s* head)
-{
-  assert (head != NULL);
-
-  (head->next == NULL) ? 1 : 0;
-}
-
-size_t size_s(list_s* head)
-{
-  assert(head != NULL);
-
-  return head->size;
-}
-
-void delete_list_s(list_s* head)
-{
-  assert(head != NULL);
-  
-  int s = size(head);
-
-  while (s >= 0) {
-    delete_at(head, s);
-    s--;
-  }
-
-  free(head);
-}
-
-
-/////////////////////////////////////////////////////////
-/////////* Doubly linked list implementation *///////////
-/////////////////////////////////////////////////////////
-
-
-int init_list_d(list_d* list)
+int init_list(list* list)
 {
   assert(list == NULL);
-
-  list->head = malloc(sizeof(list_d));
-  list->tail = malloc(sizeof(list_d));
-
-  if (list->head == NULL || list->tail == NULL) {
-    return -1;
-  }
-
-  list->head->next = list->tail;
-  list->head->previous = NULL;
-  list->head->data = NULL;  // this value should not be modified again
-  list->head.size = 0;  // this value should not be modified again
-  list->data = NULL;
-  list->size = 0;
-
-  list->tail->next = NULL;
-  list->tail->previous = list->head;
-  list->tail->data = NULL; // this value should not be modified again
-  list->tail.size = 0;  // this value should not be modified again
-  list->data = NULL;
-  list->size = 0;
-
-  return 1;
-}
-
-int insert_front_d(list_d* list, void* data)
-{
-  assert (list != NULL);
-
-  list_d* new_node = malloc(sizeof(list_d*));
-  if (new_node == NULL) {
-    return -1;
-  }
-
-  if (list->head->next == list->tail) { // empty list
-    new_node->next = list->tail;
-    new_node->previous = list->head;
-    new_node->data = data;
-
-    list->head->next = new_node;
-    list->head->previous = NULL; // remains same
-    ++list->head.size;
-
-    list->tail->next = NULL; // remains same
-    list->tail->previous = new_node;
-    ++list->tail.size;
-    
-    ++list->size;
-  }
-  else {
-    new_node->next = head->next;
-    new_node->previous = list->head;
-    new_node->data = data;
-    ++new_node.size;
-
-    list->head->next = new_node;
-    list->tail->previous = new_node;
-    ++list->head.size;
-    ++list->tail.size;
-  }
-  return 1;
-}
-
-int insert_rear_d(list_d* list, void* data)
-{
-  assert(list != NULL);
-  assert(data != NULL);
-
-  list_d* new_node = malloc(sizeof(list_d));
-  if (new_node == NULL) {
-    return -1;
-  }
-
-  if (list->tail->previous == list->head) { // empty list
-    list->head->next = new_node;
-    list->head->previous = NULL; // remains same
-    list->tail->next = NULL; // remains same
-    list->tail->previous = new_node;
-    list->data = data;
-    ++list->size;
-  }
-  else {
-    new_node->next = tail;
-    new_node->previous = list->tail->previous;
-    new_node->data = data;
-    
-    ++list->head.size;
-
-    list->tail->previous = new_node;
-    list->tail->next = NULL; // remains same
-    ++list->tail.size;
-  }
-  return 1;
-}
-
-void* get_front_d(list_d* list)
-{
-  assert(list != NULL);
   
-  return list->head->next;
-}
-
-extern void* get_rear_d(list_d* list)
-{
-  assert(list_d != NULL);
-
-  return list->tail->previous;
-}
-
-int is_empty_d(list_d* list)
-{
-  assert(list != NULL);
-
-  if (list->head->size == 0) {
+  list* head = malloc(sizeof(struct _list));
+  if (head == NULL) {
+    fprintf(stderr, "error malloc head\n");
     return 1;
   }
-  else {
-    return 0;
+
+  list* tail = malloc(sizeof(struct _list));
+  if (tail == NULL) {
+    fprintf(stderrr, "error malloc tail\n");
+    return 1;
   }
+  
+  head->next = tail;
+  head->previous = NULL;
+  tail->next = NULL;
+  tail->previous = head;
+
+  list->next = tail; // list points to one past the end of list
 }
 
-size_t size_d(list_d* list)
+iterator begin(list* list)
 {
-  if (list->head.size == list->tail.size) {
-    return list->head.size; // this should always be returned if the impelemtation is correct.
-  }
-  else {
-    return -1;
-  }
+  assert(list != NULL);
+
+  iterator it;
+  it = list->head->next;
+  return it;
 }
+
+iterator end(list* list)
+{
+  assert(list != NULL);
+
+  iterator it;
+  it = list->tail;
+  return it;
+}
+
+iterator next(iterator it)
+{
+  assert(list != NULL);
+  //assert(it != NULL); // ?
+
+  it = it->next;
+
+  return it;
+}
+
