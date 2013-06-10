@@ -5,14 +5,13 @@
 #include <stdlib.h>
 #include <assert.h>
 
-struct _node {
-  struct _node next;
-  struct _node previous;
+struct _link {
+  struct _link link;
 };
 
 struct _list {
-  struct _node head;
-  struct _node tail;
+  struct _link next;
+  struct _link previous;
   void* data;
   size_t size;
 };
@@ -26,8 +25,8 @@ typedef struct _list* iterator;
 extern int init_list(list*);
 extern iterator begin(list*);
 extern iterator end(list*);
-extern iterator next(list*, iterator);
-extern void advance(list*, iterator, int); // list, iterator, distance to iterate
+extern iterator next(iterator);
+extern void advance(iterator, int); // list, iterator, distance to iterate
 extern int insert(list*, iterator, void*);
 extern void* get(list*, iterator);
 extern void* get_front(list*);
