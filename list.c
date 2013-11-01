@@ -24,7 +24,11 @@ int init_list(list* list)
   tail->previous = head;
 
   list->next = tail; // list points to one past the end of list
+
+  return 0;
 }
+
+/* return an iterator to the first element of the list */
 
 iterator begin(list* list)
 {
@@ -35,6 +39,9 @@ iterator begin(list* list)
   return it;
 }
 
+
+/* return an iterator to one past the final element of the list */
+
 iterator end(list* list)
 {
   assert(list != NULL);
@@ -44,9 +51,10 @@ iterator end(list* list)
   return it;
 }
 
+/* move iterator to the next element of the list */
+
 iterator next(iterator it)
 {
-  assert(list != NULL);
   //assert(it != NULL); // ?
 
   it = it->next;
