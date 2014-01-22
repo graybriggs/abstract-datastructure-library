@@ -2,11 +2,20 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
-/* the underlying implementation is a doubly linked list */
+#include <stdint.h>
+
+/* 
+
+	Typical FIFO queue.
+	The underlying implementation is a doubly linked list
+
+	-- GB
+*/
 
 struct _queue {
 	struct _queue* next;
 	void* data;
+	size_t size;
 };
 
 typedef struct _queue queue;
