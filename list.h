@@ -8,18 +8,28 @@
 
 // doubly linked list
 
-struct _list {
-  struct _list next;
-  struct _list previous;
+// A list node. It points at the previous and next node
+// and each node holds data
+typedef struct _node {
+  struct _node* next;
+  struct _node* previous;
   void* data;
-  size_t size;
-};
+} node;
 
-typedef struct _list list;
+// The actual list. Consists of a head and tail node.
+// The list knows where its head and tail are at all times
+// The list holds its current size
+typedef struct _list {
+  struct _node* head;
+  struct _node* tail;
+  size_t size;
+} list;
+
+//typedef struct _list list;
 
 //////////// Iterator for list //////
 
-typedef struct _list* iterator;
+typedef struct _node* iterator;
 
 extern int init_list(list*);
 extern iterator begin(list*);
