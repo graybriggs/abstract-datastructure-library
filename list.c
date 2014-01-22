@@ -6,13 +6,13 @@ int init_list(list* lst)
 {
   assert(lst->head == NULL);
   
-  lst->head = (struct _node*)malloc(sizeof(struct _node));
+  lst->head = malloc(sizeof(struct _node));
   if (lst->head == NULL) {
     fprintf(stderr, "error malloc head\n");
     return 1;
   }
 
-  lst->tail = (struct _node*)malloc(sizeof(struct _node));
+  lst->tail = malloc(sizeof(struct _node));
   if (lst->tail == NULL) {
     fprintf(stderr, "error malloc tail\n");
     return 1;
@@ -68,7 +68,7 @@ void advance(iterator it, int val)
 
 int insert(list* lst, iterator it, void* data)
 {
-	struct _node* temp = (struct _node*)malloc(sizeof(struct _node));
+	struct _node* temp = malloc(sizeof(struct _node));
 	if (temp == NULL) {
 		return 1;
 	}
@@ -95,7 +95,7 @@ int push_front(list* lst, void* data)
   assert (data != NULL);
 
   // create the new node
-  struct _node* temp = (struct _node*)malloc(sizeof(struct _node));
+  struct _node* temp = malloc(sizeof(struct _node));
   // point the data pointer at the data
   temp->data = data;
 
