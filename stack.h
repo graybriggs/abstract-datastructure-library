@@ -2,24 +2,21 @@
 #define STACK_H
 
 #include <stdlib.h>
+#include <stdint.h>
 
 #define S_STACK_DEFAULT 10
 
 
-typedef struct {
-	void* data;
-	void* next;
-} node;
 
-typedef struct {
-	node* top;
-	node* bottom;
+typedef struct _stack {
+	struct _stack next;
+	void* data;
 	size_t size;
 } stack;
 
 
 extern stack* init_stack();
-extern void push(stack*, void*);
+extern int push(stack*, void*);
 extern void pop(stack*);
 extern void* top(stack*);
 extern void delete_stack(stack*);
