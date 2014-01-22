@@ -6,13 +6,11 @@
 #include <stdint.h>
 #include <assert.h>
 
-struct _link {
-  struct _link link;
-};
+// doubly linked list
 
 struct _list {
-  struct _link next;
-  struct _link previous;
+  struct _list next;
+  struct _list previous;
   void* data;
   size_t size;
 };
