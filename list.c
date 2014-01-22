@@ -4,7 +4,7 @@
 
 int init_list(list* lst)
 {
-  assert(lst->head == NULL);
+  assert(lst->head != NULL);
   
   lst->head = malloc(sizeof(struct _node));
   if (lst->head == NULL) {
@@ -22,6 +22,7 @@ int init_list(list* lst)
   lst->head->previous = NULL;
   lst->tail->next = NULL;
   lst->tail->previous = lst->head;
+  lst->size = 0;
 
   return 0; // success
 }
@@ -87,6 +88,23 @@ int insert(list* lst, iterator it, void* data)
 int push_back(list* lst, void* data)
 {
   // could contain an internal iterator ??
+  
+  assert (lst->head != NULL);
+  
+  node* n = malloc(sizeof(struct _node));
+  if (n == NULL) {
+	  return 1;  // fail
+  }
+  else {
+	n->previous = lst->tail->previous;
+	n->next = lst->tail;
+	lst->tail->previous = n;
+	n->data = data;
+	
+	++lst->size;
+	
+	return 0;  // success
+  }
 }
 
 int push_front(list* lst, void* data)
@@ -96,6 +114,11 @@ int push_front(list* lst, void* data)
 
   // create the new node
   struct _node* temp = malloc(sizeof(struct _node));
+  
+  if (temp == NULL) {
+	  return 0;
+  }
+  
   // point the data pointer at the data
   temp->data = data;
 
@@ -105,12 +128,14 @@ int push_front(list* lst, void* data)
 	  temp->next = lst->tail;
 	  temp->previous = lst->head;
 	  ++lst->size;
+	  return 0; // success
   }
   else {
 	lst->head->next->previous = temp;
     temp->next = lst->head->next;
     temp->previous = lst->head;
     ++lst->size;
+    return 0; // success
   }
 
 }
