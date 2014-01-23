@@ -27,7 +27,11 @@ int init_list(list* lst)
   return 0; // success
 }
 
-/* return an iterator to the first element of the list */
+/* return an iterator to the first element of the list
+ * 
+ * Note: if the list is empty, begin() == end()
+ * 
+ */
 
 iterator begin(list* lst)
 {
@@ -64,7 +68,9 @@ iterator next(iterator it)
 
 void advance(iterator it, int val)
 {
-
+	for (int i = 0; i < val; ++i) {
+		it = it->next;
+	}
 }
 
 int insert(list* lst, iterator it, void* data)
@@ -102,14 +108,17 @@ int push_back(list* lst, void* data)
   
   if (empty(lst)) {
 	  lst->head->next = n;
-	  n = lst->tail->previous;
+	  lst->tail->previous = n;
 	  n->previous = lst->head;
 	  n->next = lst->tail;
+	  
+	  ++lst->size;
+	  
+	  return 0;
   }
   else {
-	node* t = lst->tail->previous;
-	t->next = n;
-	n->previous = t;
+	n->previous = lst->tail->previous;
+	lst->tail->previous->next = n;
 	n->next = lst->tail;
 	lst->tail->previous = n;
 	
@@ -155,9 +164,17 @@ int push_front(list* lst, void* data)
 
 }
 
+void* get(iterator it)
+{
+	return it->data;
+}
+
+/*
 void* get(list* lst, iterator it)
 {
+	return it->data;
 }
+*/
 
 /* 
  * Returns the data from the front element of the list.
@@ -222,3 +239,14 @@ size_t size(list* lst)
 
   return lst->size;
 }
+
+
+/////
+
+void dbg_print_list(list* lst) {
+
+	for (iterator it = begin(lst); it != end(lst); it = next(it)) {
+		printf("%c\n", *(char*)get(it));
+	}
+}
+
