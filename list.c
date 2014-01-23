@@ -95,6 +95,9 @@ int push_back(list* lst, void* data)
   if (n == NULL) {
 	  return 1;  // fail
   }
+  
+  if (empty(lst)) {
+  }
   else {
 	n->previous = lst->tail->previous;
 	n->next = lst->tail;
@@ -116,7 +119,7 @@ int push_front(list* lst, void* data)
   struct _node* temp = malloc(sizeof(struct _node));
   
   if (temp == NULL) {
-	  return 0;
+	  return 1;
   }
   
   // point the data pointer at the data
@@ -126,6 +129,7 @@ int push_front(list* lst, void* data)
   if (empty(lst)) {
 	  lst->head->next = temp;
 	  temp->next = lst->tail;
+	  lst->tail->previous = temp;
 	  temp->previous = lst->head;
 	  ++lst->size;
 	  return 0; // success
@@ -153,12 +157,8 @@ void* get_front(list* lst)
   assert(lst->head != NULL);
 
   if (!empty(lst)) {
-    if (lst->head != NULL) {
-      return lst->head->next->data;
-    }
-    else {
-      return NULL;
-    }
+	node* n = lst->head->next;
+	return n->data;
   }
   else {
     return NULL;
@@ -168,7 +168,8 @@ void* get_front(list* lst)
 void* get_rear(list* lst)
 {
   if (!empty(lst)) {
-    
+    node* n = lst->tail->previous;
+    return n->data;
   }
   else {
     return NULL;
