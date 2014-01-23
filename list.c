@@ -90,19 +90,28 @@ int push_back(list* lst, void* data)
   // could contain an internal iterator ??
   
   assert (lst->head != NULL);
+  assert (data != NULL);
   
   node* n = malloc(sizeof(struct _node));
   if (n == NULL) {
 	  return 1;  // fail
   }
+  else {
+	  n->data = data;
+  }
   
   if (empty(lst)) {
+	  lst->head->next = n;
+	  n = lst->tail->previous;
+	  n->previous = lst->head;
+	  n->next = lst->tail;
   }
   else {
-	n->previous = lst->tail->previous;
+	node* t = lst->tail->previous;
+	t->next = n;
+	n->previous = t;
 	n->next = lst->tail;
 	lst->tail->previous = n;
-	n->data = data;
 	
 	++lst->size;
 	
@@ -119,12 +128,12 @@ int push_front(list* lst, void* data)
   struct _node* temp = malloc(sizeof(struct _node));
   
   if (temp == NULL) {
-	  return 1;
+	  return 1;  // fail
   }
-  
-  // point the data pointer at the data
-  temp->data = data;
-
+  else {
+	// point the data pointer at the data
+	temp->data = data;
+  }
   // if the list is empty
   if (empty(lst)) {
 	  lst->head->next = temp;
@@ -135,9 +144,11 @@ int push_front(list* lst, void* data)
 	  return 0; // success
   }
   else {
-	lst->head->next->previous = temp;
-    temp->next = lst->head->next;
+	node* t = lst->head->next;
+	t->previous = temp;
+    temp->next = t;
     temp->previous = lst->head;
+    lst->head->next = temp;
     ++lst->size;
     return 0; // success
   }
