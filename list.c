@@ -66,11 +66,13 @@ iterator next(iterator it)
 }
 
 
-void advance(iterator it, int val)
+/* advance the iterator by val amount */
+iterator advance(iterator it, int val)
 {
 	for (int i = 0; i < val; ++i) {
 		it = it->next;
 	}
+	return it;
 }
 
 int insert(list* lst, iterator it, void* data)

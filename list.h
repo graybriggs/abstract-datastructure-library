@@ -35,7 +35,7 @@ extern int init_list(list*);
 extern iterator begin(list*);
 extern iterator end(list*);
 extern iterator next(iterator);
-extern void advance(iterator, int); // list, iterator, distance to iterate
+extern iterator advance(iterator, int); // list, iterator, distance to iterate
 extern int insert(list*, iterator, void*);
 extern int push_back(list*, void*);
 extern int push_front(list*, void*);

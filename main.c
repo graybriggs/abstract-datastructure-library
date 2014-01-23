@@ -5,7 +5,6 @@
 #include "debug.h"
 
 
-
 int main()
 {
 	
@@ -30,7 +29,13 @@ int main()
 	*c = 'g';
 	push_front(&lst, c);
 	
-	dbg_print_list(&lst);
+	//dbg_print_list(&lst);
+	
+	iterator it;
+	it = begin(&lst);
+	it = advance(it, 3);
+	
+	printf("%c\n", *(char*)get(it));
 	
 	return 0;
 }
