@@ -214,9 +214,19 @@ iterator erase_between(list* lst, iterator it1, iterator it2)
 {
 }
 
+/* clears and deletes all elements that the list holds
+ * leaving the list with a size of 0
+ */
+
 void clear(list* lst)
 {
+	erase_between(begin(lst), end(lst));
 }
+
+
+/* returns 1 if the list is empty
+ * returns 0 if the list is not empty
+ */
 
 int empty(list* lst)
 {
