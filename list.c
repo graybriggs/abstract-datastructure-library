@@ -220,7 +220,7 @@ iterator erase_between(list* lst, iterator it1, iterator it2)
 
 void clear(list* lst)
 {
-	erase_between(begin(lst), end(lst));
+	erase_between(lst, begin(lst), end(lst));
 }
 
 
