@@ -35,7 +35,10 @@ int main()
 	it = begin(&lst);
 	it = advance(it, 3);
 	
-	printf("%c\n", *(char*)get(it));
+	it = erase(&lst, it);
+	
+	
+	dbg_print_list(&lst);
 	
 	return 0;
 }

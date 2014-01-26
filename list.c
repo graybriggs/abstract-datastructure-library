@@ -206,8 +206,23 @@ void* get_rear(list* lst)
   }
 }
 
+/* deletes element specified by the iterator
+ * returns an iterator to the next element to the deleted
+ * returns iterator to end() if the element deleted was the last
+ */
 iterator erase(list* lst, iterator it)
 {
+	iterator new_it = next(it);
+	
+	struct _node* prev = it->previous;
+	struct _node* nxt = it->next;
+	prev->next = nxt;
+	nxt->previous = prev;
+	
+	free(it->data);
+	free(it);
+	
+	return new_it;
 }
 
 iterator erase_between(list* lst, iterator it1, iterator it2)
