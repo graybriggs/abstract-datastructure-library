@@ -33,10 +33,19 @@ int main()
 	
 	iterator it;
 	it = begin(&lst);
-	it = advance(it, 3);
+	it = advance(it, 2);
 	
-	it = erase(&lst, it);
+	dbg_print_list(&lst);
 	
+	//it = erase_between(&lst, begin(&lst), it);
+	clear(&lst);
+	
+	char* chr = malloc(sizeof(char));
+	*chr = 'x';
+	push_front(&lst, chr);
+	chr = malloc(sizeof(char));
+	*chr = 'z';
+	push_back(&lst, chr);
 	
 	dbg_print_list(&lst);
 	

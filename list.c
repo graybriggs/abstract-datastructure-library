@@ -227,6 +227,12 @@ iterator erase(list* lst, iterator it)
 
 iterator erase_between(list* lst, iterator it1, iterator it2)
 {
+	iterator it = it1;
+	
+	while (it != it2) {
+		it = erase(lst, it);
+	}
+	return it;
 }
 
 /* clears and deletes all elements that the list holds
@@ -272,6 +278,7 @@ size_t size(list* lst)
 
 void dbg_print_list(list* lst) {
 
+	printf("List Dump\n");
 	for (iterator it = begin(lst); it != end(lst); it = next(it)) {
 		printf("%c\n", *(char*)get(it));
 	}
