@@ -40,14 +40,20 @@ int main()
 	//it = erase_between(&lst, begin(&lst), it);
 	clear(&lst);
 	
+	dbg_print_list(&lst);
+	
 	char* chr = malloc(sizeof(char));
 	*chr = 'x';
 	push_front(&lst, chr);
 	chr = malloc(sizeof(char));
 	*chr = 'z';
 	push_back(&lst, chr);
-	
+	printf("size: %d\n", (int)size(&lst));
 	dbg_print_list(&lst);
 	
+	delete_list(&lst);
+	
+	dbg_print_list(&lst);
+		
 	return 0;
 }

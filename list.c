@@ -222,6 +222,8 @@ iterator erase(list* lst, iterator it)
 	free(it->data);
 	free(it);
 	
+	--lst->size;
+	
 	return new_it;
 }
 
@@ -261,9 +263,14 @@ int empty(list* lst)
   }
 }
 
-int delete_list(list* lst)
+void delete_list(list* lst)
 {
-
+	erase_between(lst, begin(lst), end(lst));
+	
+	free(lst->head);
+	free(lst->tail);
+	lst->head = NULL;
+	lst->tail = NULL;
 }
 
 size_t size(list* lst)
@@ -279,8 +286,17 @@ size_t size(list* lst)
 void dbg_print_list(list* lst) {
 
 	printf("List Dump\n");
-	for (iterator it = begin(lst); it != end(lst); it = next(it)) {
-		printf("%c\n", *(char*)get(it));
+	
+	if (lst->head == NULL || lst->tail == NULL) {
+		printf("No list found.\n");
+	}
+	else if (empty(lst)) {
+		printf("List is empty.\n");
+	}
+	else{
+		for (iterator it = begin(lst); it != end(lst); it = next(it)) {
+			printf("%c\n", *(char*)get(it));
+		}		
 	}
 }
 
