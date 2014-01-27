@@ -4,8 +4,6 @@
 
 int init_list(list* lst)
 {
-  assert(lst->head != NULL);
-  
   lst->head = malloc(sizeof(struct _node));
   if (lst->head == NULL) {
     fprintf(stderr, "error malloc head\n");
@@ -35,7 +33,8 @@ int init_list(list* lst)
 
 iterator begin(list* lst)
 {
-  assert(lst != NULL);
+  assert(lst->head != NULL);
+  assert(lst->tail != NULL);
 
   iterator it;
   it = lst->head->next;
@@ -47,7 +46,8 @@ iterator begin(list* lst)
 
 iterator end(list* lst)
 {
-  assert(lst != NULL);
+  assert(lst->head != NULL);
+  assert(lst->tail != NULL);
 
   iterator it;
   it = lst->tail;
@@ -77,6 +77,9 @@ iterator advance(iterator it, int val)
 
 int insert(list* lst, iterator it, void* data)
 {
+	assert(lst->head != NULL);
+	assert(lst->tail != NULL);
+	
 	struct _node* temp = malloc(sizeof(struct _node));
 	if (temp == NULL) {
 		return 1;
@@ -97,7 +100,8 @@ int push_back(list* lst, void* data)
 {
   // could contain an internal iterator ??
   
-  assert (lst->head != NULL);
+  assert(lst->head != NULL);
+  assert(lst->tail != NULL);
   assert (data != NULL);
   
   node* n = malloc(sizeof(struct _node));
@@ -132,7 +136,8 @@ int push_back(list* lst, void* data)
 
 int push_front(list* lst, void* data)
 {
-  assert (lst->head != NULL); 
+  assert(lst->head != NULL);
+  assert(lst->tail != NULL);; 
   assert (data != NULL);
 
   // create the new node
@@ -185,6 +190,7 @@ void* get(list* lst, iterator it)
 void* get_front(list* lst)
 {
   assert(lst->head != NULL);
+  assert(lst->tail != NULL);
 
   if (!empty(lst)) {
 	node* n = lst->head->next;
@@ -197,6 +203,9 @@ void* get_front(list* lst)
 
 void* get_rear(list* lst)
 {
+  assert(lst->head != NULL);
+  assert(lst->tail != NULL);
+	
   if (!empty(lst)) {
     node* n = lst->tail->previous;
     return n->data;
@@ -212,6 +221,9 @@ void* get_rear(list* lst)
  */
 iterator erase(list* lst, iterator it)
 {
+	assert(lst->head != NULL);
+	assert(lst->tail != NULL);
+	
 	iterator new_it = next(it);
 	
 	struct _node* prev = it->previous;
@@ -229,6 +241,9 @@ iterator erase(list* lst, iterator it)
 
 iterator erase_between(list* lst, iterator it1, iterator it2)
 {
+	assert(lst->head != NULL);
+	assert(lst->tail != NULL);
+	
 	iterator it = it1;
 	
 	while (it != it2) {
@@ -243,6 +258,9 @@ iterator erase_between(list* lst, iterator it1, iterator it2)
 
 void clear(list* lst)
 {
+	assert(lst->head != NULL);
+	assert(lst->tail != NULL);
+	
 	erase_between(lst, begin(lst), end(lst));
 }
 
@@ -254,6 +272,7 @@ void clear(list* lst)
 int empty(list* lst)
 {
   assert(lst->head != NULL);
+  assert(lst->tail != NULL);
 
   if (lst->size == 0) {
     return 1;
@@ -265,6 +284,9 @@ int empty(list* lst)
 
 void delete_list(list* lst)
 {
+	assert(lst->head != NULL);
+	assert(lst->tail != NULL);
+	
 	erase_between(lst, begin(lst), end(lst));
 	
 	free(lst->head);
@@ -275,7 +297,8 @@ void delete_list(list* lst)
 
 size_t size(list* lst)
 {
-  assert(lst != NULL);
+  assert(lst->head != NULL);
+  assert(lst->tail != NULL);
 
   return lst->size;
 }
