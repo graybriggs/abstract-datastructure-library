@@ -32,7 +32,7 @@ extern int queue_push(queue*, void*);
 
 /* removes and deletes element from the front of the queue - returns 0 on
    success, -1 on failure */
-extern int queue_pop(queue*);
+extern void queue_pop(queue*);
 
 /* checks if the queue is empty - returns 0 if empty, 1 not empty */
 extern int is_queue_empty(queue*);

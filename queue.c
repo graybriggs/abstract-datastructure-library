@@ -22,10 +22,11 @@ void* queue_back(queue* q) {
 }
 
 int queue_push(queue* q, void* data) {
-	push_back(&q->lst_queue, data);
+	return push_back(&q->lst_queue, data);
+	
 }
 
-int queue_pop(queue* q) {
+void queue_pop(queue* q) {
 	get_front(&q->lst_queue);
 	erase(&q->lst_queue, begin(&q->lst_queue));
 }
