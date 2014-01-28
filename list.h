@@ -31,23 +31,23 @@ typedef struct _list {
 
 typedef struct _node* iterator;
 
-extern int init_list(list*);
-extern iterator begin(list*);
-extern iterator end(list*);
-extern iterator next(iterator);
-extern iterator advance(iterator, int); // list, iterator, distance to iterate
-extern int insert(list*, iterator, void*);
-extern int push_back(list*, void*);
-extern int push_front(list*, void*);
-extern void* get(iterator);
-extern void* get_front(list*); // returns data of first list element else null
-extern void* get_rear(list*);
-extern iterator erase(list*, iterator);
-extern iterator erase_between(list*, iterator, iterator); // think of a better name
-extern void clear(list*);
-extern int empty(list*);
-extern void delete_list(list*);
-extern size_t size(list*);
+extern int list_init(list*);
+extern iterator list_begin(list*);
+extern iterator list_end(list*);
+extern iterator list_next(iterator);
+extern iterator list_advance(iterator, int); // list, iterator, distance to iterate
+extern int list_insert(list*, iterator, void*);
+extern int list_push_back(list*, void*);
+extern int list_push_front(list*, void*);
+extern void* list_get(iterator);
+extern void* list_get_front(list*); // returns data of first list element else null
+extern void* list_get_rear(list*);
+extern iterator list_erase(list*, iterator);
+extern iterator list_erase_between(list*, iterator, iterator); // think of a better name
+extern void list_clear(list*);
+extern int list_is_empty(list*);
+extern void list_delete(list*);
+extern size_t list_size(list*);
 
 ///////
 

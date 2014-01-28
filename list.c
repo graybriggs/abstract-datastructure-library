@@ -2,7 +2,7 @@
 
 #include "list.h"
 
-int init_list(list* lst)
+int list_init(list* lst)
 {
   lst->head = malloc(sizeof(struct _node));
   if (lst->head == NULL) {
@@ -31,7 +31,7 @@ int init_list(list* lst)
  * 
  */
 
-iterator begin(list* lst)
+iterator list_begin(list* lst)
 {
   assert(lst->head != NULL);
   assert(lst->tail != NULL);
@@ -44,7 +44,7 @@ iterator begin(list* lst)
 
 /* return an iterator to one past the final element of the list */
 
-iterator end(list* lst)
+iterator list_end(list* lst)
 {
   assert(lst->head != NULL);
   assert(lst->tail != NULL);
@@ -56,7 +56,7 @@ iterator end(list* lst)
 
 /* move iterator to the next element of the list */
 
-iterator next(iterator it)
+iterator list_next(iterator it)
 {
   //assert(it != NULL); // ?
 
@@ -67,7 +67,7 @@ iterator next(iterator it)
 
 
 /* advance the iterator by val amount */
-iterator advance(iterator it, int val)
+iterator list_advance(iterator it, int val)
 {
 	for (int i = 0; i < val; ++i) {
 		it = it->next;
@@ -75,7 +75,7 @@ iterator advance(iterator it, int val)
 	return it;
 }
 
-int insert(list* lst, iterator it, void* data)
+int list_insert(list* lst, iterator it, void* data)
 {
 	assert(lst->head != NULL);
 	assert(lst->tail != NULL);
@@ -96,7 +96,7 @@ int insert(list* lst, iterator it, void* data)
 	}
 }
 
-int push_back(list* lst, void* data)
+int list_push_back(list* lst, void* data)
 {
   // could contain an internal iterator ??
   
@@ -112,7 +112,7 @@ int push_back(list* lst, void* data)
 	  n->data = data;
   }
   
-  if (empty(lst)) {
+  if (list_is_empty(lst)) {
 	  lst->head->next = n;
 	  lst->tail->previous = n;
 	  n->previous = lst->head;
@@ -134,7 +134,7 @@ int push_back(list* lst, void* data)
   }
 }
 
-int push_front(list* lst, void* data)
+int list_push_front(list* lst, void* data)
 {
   assert(lst->head != NULL);
   assert(lst->tail != NULL);; 
@@ -151,7 +151,7 @@ int push_front(list* lst, void* data)
 	temp->data = data;
   }
   // if the list is empty
-  if (empty(lst)) {
+  if (list_is_empty(lst)) {
 	  lst->head->next = temp;
 	  temp->next = lst->tail;
 	  lst->tail->previous = temp;
@@ -171,7 +171,7 @@ int push_front(list* lst, void* data)
 
 }
 
-void* get(iterator it)
+void* list_get(iterator it)
 {
 	return it->data;
 }
@@ -187,12 +187,12 @@ void* get(list* lst, iterator it)
  * Returns the data from the front element of the list.
  * Returns NULL if list is empty.
  */
-void* get_front(list* lst)
+void* list_get_front(list* lst)
 {
   assert(lst->head != NULL);
   assert(lst->tail != NULL);
 
-  if (!empty(lst)) {
+  if (!list_is_empty(lst)) {
 	node* n = lst->head->next;
 	return n->data;
   }
@@ -201,12 +201,12 @@ void* get_front(list* lst)
   }
 }
 
-void* get_rear(list* lst)
+void* list_get_rear(list* lst)
 {
   assert(lst->head != NULL);
   assert(lst->tail != NULL);
 	
-  if (!empty(lst)) {
+  if (!list_is_empty(lst)) {
     node* n = lst->tail->previous;
     return n->data;
   }
@@ -219,12 +219,12 @@ void* get_rear(list* lst)
  * returns an iterator to the next element to the deleted
  * returns iterator to end() if the element deleted was the last
  */
-iterator erase(list* lst, iterator it)
+iterator list_erase(list* lst, iterator it)
 {
 	assert(lst->head != NULL);
 	assert(lst->tail != NULL);
 	
-	iterator new_it = next(it);
+	iterator new_it = list_next(it);
 	
 	struct _node* prev = it->previous;
 	struct _node* nxt = it->next;
@@ -239,7 +239,7 @@ iterator erase(list* lst, iterator it)
 	return new_it;
 }
 
-iterator erase_between(list* lst, iterator it1, iterator it2)
+iterator list_erase_between(list* lst, iterator it1, iterator it2)
 {
 	assert(lst->head != NULL);
 	assert(lst->tail != NULL);
@@ -247,7 +247,7 @@ iterator erase_between(list* lst, iterator it1, iterator it2)
 	iterator it = it1;
 	
 	while (it != it2) {
-		it = erase(lst, it);
+		it = list_erase(lst, it);
 	}
 	return it;
 }
@@ -256,12 +256,12 @@ iterator erase_between(list* lst, iterator it1, iterator it2)
  * leaving the list with a size of 0
  */
 
-void clear(list* lst)
+void list_clear(list* lst)
 {
 	assert(lst->head != NULL);
 	assert(lst->tail != NULL);
 	
-	erase_between(lst, begin(lst), end(lst));
+	list_erase_between(lst, list_begin(lst), list_end(lst));
 }
 
 
@@ -269,7 +269,7 @@ void clear(list* lst)
  * returns 0 if the list is not empty
  */
 
-int empty(list* lst)
+int list_is_empty(list* lst)
 {
   assert(lst->head != NULL);
   assert(lst->tail != NULL);
@@ -282,12 +282,12 @@ int empty(list* lst)
   }
 }
 
-void delete_list(list* lst)
+void list_delete(list* lst)
 {
 	assert(lst->head != NULL);
 	assert(lst->tail != NULL);
 	
-	erase_between(lst, begin(lst), end(lst));
+	list_erase_between(lst, list_begin(lst), list_end(lst));
 	
 	free(lst->head);
 	free(lst->tail);
@@ -295,7 +295,7 @@ void delete_list(list* lst)
 	lst->tail = NULL;
 }
 
-size_t size(list* lst)
+size_t list_size(list* lst)
 {
   assert(lst->head != NULL);
   assert(lst->tail != NULL);
@@ -313,12 +313,12 @@ void dbg_print_list(list* lst) {
 	if (lst->head == NULL || lst->tail == NULL) {
 		printf("No list found.\n");
 	}
-	else if (empty(lst)) {
+	else if (list_is_empty(lst)) {
 		printf("List is empty.\n");
 	}
 	else{
-		for (iterator it = begin(lst); it != end(lst); it = next(it)) {
-			printf("%c\n", *(char*)get(it));
+		for (iterator it = list_begin(lst); it != list_end(lst); it = list_next(it)) {
+			printf("%c\n", *(char*)list_get(it));
 		}		
 	}
 }

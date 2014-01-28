@@ -35,7 +35,7 @@ extern int queue_push(queue*, void*);
 extern void queue_pop(queue*);
 
 /* checks if the queue is empty - returns 0 if empty, 1 not empty */
-extern int is_queue_empty(queue*);
+extern int queue_is_empty(queue*);
 
 /* returns the size of the queue, 0 if empty */
 extern size_t queue_size(queue*);
