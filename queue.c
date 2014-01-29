@@ -13,12 +13,12 @@ int queue_init(queue* q) {
 	
 }
 
-void* queue_front(queue* q) {
-	list_get_front(&q->lst_queue);
+void* queue_front(const queue* q) {
+	return list_get_front(&q->lst_queue);
 }
 
-void* queue_back(queue* q) {
-	list_get_rear(&q->lst_queue);
+void* queue_back(const queue* q) {
+	return list_get_rear(&q->lst_queue);
 }
 
 int queue_push(queue* q, void* data) {
@@ -40,10 +40,10 @@ int queue_is_empty(queue* q) {
 	}
 }
 
-size_t queue_size(queue* q) {
+size_t queue_size(const queue* const q) {
 	return q->lst_queue.size;
 }
 
-void dbg_print_queue(queue* q) {
+void dbg_print_queue(queue*q) {
 	dbg_print_list(&q->lst_queue);
 }
