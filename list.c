@@ -31,7 +31,7 @@ int list_init(list* lst)
  * 
  */
 
-iterator list_begin(list* lst)
+iterator list_begin(const list* lst)
 {
   assert(lst->head != NULL);
   assert(lst->tail != NULL);
@@ -44,7 +44,7 @@ iterator list_begin(list* lst)
 
 /* return an iterator to one past the final element of the list */
 
-iterator list_end(list* lst)
+iterator list_end(const list* lst)
 {
   assert(lst->head != NULL);
   assert(lst->tail != NULL);
@@ -67,7 +67,7 @@ iterator list_next(iterator it)
 
 
 /* advance the iterator by val amount */
-iterator list_advance(iterator it, int val)
+iterator list_advance(iterator it, const int val)
 {
 	for (int i = 0; i < val; ++i) {
 		it = it->next;
@@ -89,7 +89,7 @@ int list_insert(list* lst, iterator it, void* data)
 		temp->previous = it->previous;
 		it->previous->next = temp;
 		it->next->previous = temp;
-		temp->data = data;
+		temp->data = data; 
 		++lst->size;
 		
 		return 0;
@@ -171,23 +171,16 @@ int list_push_front(list* lst, void* data)
 
 }
 
-void* list_get(iterator it)
+void* list_get(const iterator it)
 {
 	return it->data;
 }
-
-/*
-void* get(list* lst, iterator it)
-{
-	return it->data;
-}
-*/
 
 /* 
  * Returns the data from the front element of the list.
  * Returns NULL if list is empty.
  */
-void* list_get_front(list* lst)
+void* list_get_front(const list* lst)
 {
   assert(lst->head != NULL);
   assert(lst->tail != NULL);
@@ -201,7 +194,7 @@ void* list_get_front(list* lst)
   }
 }
 
-void* list_get_rear(list* lst)
+void* list_get_rear(const list* lst)
 {
   assert(lst->head != NULL);
   assert(lst->tail != NULL);
@@ -269,7 +262,7 @@ void list_clear(list* lst)
  * returns 0 if the list is not empty
  */
 
-int list_is_empty(list* lst)
+int list_is_empty(const list* lst)
 {
   assert(lst->head != NULL);
   assert(lst->tail != NULL);
@@ -295,7 +288,7 @@ void list_delete(list* lst)
 	lst->tail = NULL;
 }
 
-size_t list_size(list* lst)
+size_t list_size(const list* lst)
 {
   assert(lst->head != NULL);
   assert(lst->tail != NULL);

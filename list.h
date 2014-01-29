@@ -32,22 +32,23 @@ typedef struct _list {
 typedef struct _node* iterator;
 
 extern int list_init(list*);
-extern iterator list_begin(list*);
-extern iterator list_end(list*);
+extern iterator list_begin(const list*);
+extern iterator list_end(const list*);
 extern iterator list_next(iterator);
-extern iterator list_advance(iterator, int); // list, iterator, distance to iterate
+extern iterator list_advance(iterator, const int); // list, iterator, distance to iterate
+/* update to const void* */
 extern int list_insert(list*, iterator, void*);
 extern int list_push_back(list*, void*);
 extern int list_push_front(list*, void*);
-extern void* list_get(iterator);
-extern void* list_get_front(list*); // returns data of first list element else null
-extern void* list_get_rear(list*);
+extern void* list_get(const iterator);
+extern void* list_get_front(const list*); // returns data of first list element else null
+extern void* list_get_rear(const list*);
 extern iterator list_erase(list*, iterator);
 extern iterator list_erase_between(list*, iterator, iterator); // think of a better name
 extern void list_clear(list*);
-extern int list_is_empty(list*);
+extern int list_is_empty(const list*);
 extern void list_delete(list*);
-extern size_t list_size(list*);
+extern size_t list_size(const list*);
 
 ///////
 
