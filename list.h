@@ -37,9 +37,9 @@ extern iterator list_end(const list*);
 extern iterator list_next(iterator);
 extern iterator list_advance(iterator, const int); // list, iterator, distance to iterate
 /* update to const void* */
-extern int list_insert(list*, iterator, void*);
-extern int list_push_back(list*, void*);
-extern int list_push_front(list*, void*);
+extern int list_insert(list*, iterator, const void* const);
+extern int list_push_back(list*, const void* const);
+extern int list_push_front(list*, const void* const);
 extern void* list_get(const iterator);
 extern void* list_get_front(const list*); // returns data of first list element else null
 extern void* list_get_rear(const list*);

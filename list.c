@@ -75,7 +75,7 @@ iterator list_advance(iterator it, const int val)
 	return it;
 }
 
-int list_insert(list* lst, iterator it, void* data)
+int list_insert(list* lst, iterator it, const void* data)
 {
 	assert(lst->head != NULL);
 	assert(lst->tail != NULL);
@@ -89,14 +89,14 @@ int list_insert(list* lst, iterator it, void* data)
 		temp->previous = it->previous;
 		it->previous->next = temp;
 		it->next->previous = temp;
-		temp->data = data; 
+		temp->data = (void*)data; 
 		++lst->size;
 		
 		return 0;
 	}
 }
 
-int list_push_back(list* lst, void* data)
+int list_push_back(list* lst, const void* data)
 {
   // could contain an internal iterator ??
   
@@ -109,7 +109,7 @@ int list_push_back(list* lst, void* data)
 	  return 1;  // fail
   }
   else {
-	  n->data = data;
+	  n->data = (void*)data;
   }
   
   if (list_is_empty(lst)) {
@@ -134,7 +134,7 @@ int list_push_back(list* lst, void* data)
   }
 }
 
-int list_push_front(list* lst, void* data)
+int list_push_front(list* lst, const void* data)
 {
   assert(lst->head != NULL);
   assert(lst->tail != NULL);; 
@@ -148,7 +148,7 @@ int list_push_front(list* lst, void* data)
   }
   else {
 	// point the data pointer at the data
-	temp->data = data;
+	temp->data = (void*)data;
   }
   // if the list is empty
   if (list_is_empty(lst)) {
