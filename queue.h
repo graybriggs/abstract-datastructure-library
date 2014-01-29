@@ -28,7 +28,7 @@ extern void* queue_front(const queue*);
 extern void* queue_back(const queue*);
 
 /* add element to the rear of the queue - returns 0 on sucess, -1 on failure */
-extern int queue_push(queue*, void*);
+extern int queue_push(queue*, const void* const);
 
 /* removes and deletes element from the front of the queue - returns 0 on
    success, -1 on failure */
@@ -38,7 +38,7 @@ extern void queue_pop(queue*);
 extern int queue_is_empty(queue*);
 
 /* returns the size of the queue, 0 if empty */
-extern size_t queue_size(const queue* const);
+extern size_t queue_size(const queue*);
 
 
 //////

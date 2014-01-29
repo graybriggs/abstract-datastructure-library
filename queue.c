@@ -21,7 +21,7 @@ void* queue_back(const queue* q) {
 	return list_get_rear(&q->lst_queue);
 }
 
-int queue_push(queue* q, void* data) {
+int queue_push(queue* q, const void* const data) {
 	return list_push_back(&q->lst_queue, data);
 	
 }
