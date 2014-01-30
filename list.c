@@ -75,7 +75,7 @@ iterator list_advance(iterator it, const int val)
 	return it;
 }
 
-int list_insert(list* lst, iterator it, const void* data)
+int list_insert(list* lst, iterator it, const void* const data)
 {
 	assert(lst->head != NULL);
 	assert(lst->tail != NULL);
@@ -96,7 +96,7 @@ int list_insert(list* lst, iterator it, const void* data)
 	}
 }
 
-int list_push_back(list* lst, const void* data)
+int list_push_back(list* lst, const void* const data)
 {
   // could contain an internal iterator ??
   
@@ -134,7 +134,7 @@ int list_push_back(list* lst, const void* data)
   }
 }
 
-int list_push_front(list* lst, const void* data)
+int list_push_front(list* lst, const void* const data)
 {
   assert(lst->head != NULL);
   assert(lst->tail != NULL);; 
