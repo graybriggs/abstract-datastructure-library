@@ -1,10 +1,10 @@
 
 
-OBJS = main.o list.o queue.o
-CC = gcc
+OBJS   = main.o list.o queue.o
+CC 	   = gcc
 CFLAGS = -Wall -std=c99 -c
 LFLAGS = -Wall
-DEBUG = -g
+DEBUG  = -g
 
 adt : $(OBJS)
 	$(CC) $(LFLAGS) $(OBJS) -o adt
