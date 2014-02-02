@@ -14,8 +14,8 @@ typedef struct _tree {
 
 int tree_init(tree*);
 int tree_insert(tree*, const void*);
-node* tree_search(tree*, void*);
-void tree_remove(tree*, void*);
+node* tree_search(tree*, const void*);
+void tree_remove(tree*, const void*);
 void tree_destory(tree*);
 
 
