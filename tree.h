@@ -13,6 +13,7 @@ typedef struct _tree {
 } tree;
 
 int tree_init(tree*);
+size_t tree_height(tree*);
 int tree_insert(tree*, const void*);
 node* tree_search(tree*, const void*);
 void tree_remove(tree*, const void*);
