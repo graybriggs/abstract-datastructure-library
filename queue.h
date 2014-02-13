@@ -3,6 +3,7 @@
 #define QUEUE_H
 
 #include <stdint.h>
+#include <assert.h>
 #include "list.h"
 /* 
 
