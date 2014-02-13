@@ -1,6 +1,10 @@
 #ifndef TREE_H
 #define TREE_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
 typedef struct _node {
 	struct _node* left;
 	struct _node* right;
