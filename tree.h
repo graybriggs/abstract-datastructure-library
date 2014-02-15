@@ -16,12 +16,12 @@ typedef struct _tree {
 	// other data here
 } tree;
 
-int tree_init(tree*);
-size_t tree_height(tree*);
-int tree_insert(tree*, const void*);
-node* tree_search(tree*, const void*);
-void tree_remove(tree*, const void*);
-void tree_destory(tree*);
+extern int tree_init(tree*);
+extern size_t tree_height(tree*);
+extern int tree_insert(tree*, const void*);
+extern node* tree_search(tree*, const void*);
+extern void tree_remove(tree*, const void*);
+extern void tree_destory(tree*);
 
 
 #endif // TREE_H
