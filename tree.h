@@ -7,12 +7,15 @@ typedef struct _node {
 	struct _node* left;
 	struct _node* right;
 	void* data;
+	//compare cp;
 } node;
 
 typedef node tree;
 
+typedef int (*compare)(void*, void*);
+
 extern size_t tree_height(tree** const);
-extern int tree_insert(tree**, const void*);
+extern int tree_insert(tree**, const void*, compare); // this compare is subejct to change
 extern void tree_inorder(tree** const);
 extern void tree_preorder(tree** const);
 extern void tree_postorder(tree** const);
