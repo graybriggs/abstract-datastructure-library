@@ -15,11 +15,11 @@ typedef node tree;
 typedef int (*compare)(void*, void*);
 
 extern size_t tree_height(tree** const);
-extern int tree_insert(tree**, const void*, compare); // this compare is subejct to change
-extern void tree_inorder(tree** const);
-extern void tree_preorder(tree** const);
-extern void tree_postorder(tree** const);
-extern node* tree_search(tree** const, const void*);
+extern int tree_insert(tree**, const void*, compare);
+extern void tree_inorder(tree** const, list* lst);
+extern void tree_preorder(tree** const, list* lst);
+extern void tree_postorder(tree** const, list* lst);
+extern int tree_search(tree** const, const void* value);
 extern void tree_remove(tree**, const void*);
 extern void tree_destory(tree**);
 
