@@ -6,6 +6,8 @@
 #include <stdint.h>
 #include <assert.h>
 
+#include "error.h"
+
 // doubly linked list
 
 // A list node. It points at the previous and next node
@@ -31,15 +33,15 @@ typedef struct _list {
 
 typedef struct _node* iterator;
 
-extern int list_init(list*);
+extern err_code list_init(list*);
 extern iterator list_begin(const list*);
 extern iterator list_end(const list*);
 extern iterator list_next(iterator);
 extern iterator list_advance(iterator, const int); // list, iterator, distance to iterate
 /* update to const void* */
-extern int list_insert(list*, iterator, const void* const);
-extern int list_push_back(list*, const void* const);
-extern int list_push_front(list*, const void* const);
+extern err_code list_insert(list*, iterator, const void* const);
+extern err_code list_push_back(list*, const void* const);
+extern err_code list_push_front(list*, const void* const);
 extern void* list_get(const iterator);
 extern void* list_get_front(const list*); // returns data of first list element else null
 extern void* list_get_rear(const list*);

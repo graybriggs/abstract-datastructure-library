@@ -2,7 +2,7 @@
 
 #include "list.h"
 
-int list_init(list* lst)
+err_code list_init(list* lst)
 {
   lst->head = malloc(sizeof(struct _node));
   if (lst->head == NULL) {
@@ -13,7 +13,7 @@ int list_init(list* lst)
   lst->tail = malloc(sizeof(struct _node));
   if (lst->tail == NULL) {
     fprintf(stderr, "error malloc tail\n");
-    return 1;
+    return ERR_FAILURE;
   }
   
   lst->head->next = lst->tail;
@@ -22,7 +22,7 @@ int list_init(list* lst)
   lst->tail->previous = lst->head;
   lst->size = 0;
 
-  return 0; // success
+  return ERR_SUCCESS; // success
 }
 
 /* return an iterator to the first element of the list
@@ -75,14 +75,14 @@ iterator list_advance(iterator it, const int val)
 	return it;
 }
 
-int list_insert(list* lst, iterator it, const void* const data)
+err_code  list_insert(list* lst, iterator it, const void* const data)
 {
 	assert(lst->head != NULL);
 	assert(lst->tail != NULL);
 	
 	struct _node* temp = malloc(sizeof(struct _node));
 	if (temp == NULL) {
-		return 1;
+		return ERR_FAILURE;
 	}
 	else {
 		temp->next = it->next;
@@ -92,11 +92,11 @@ int list_insert(list* lst, iterator it, const void* const data)
 		temp->data = (void*)data; 
 		++lst->size;
 		
-		return 0;
+		return ERR_SUCCESS;
 	}
 }
 
-int list_push_back(list* lst, const void* const data)
+err_code list_push_back(list* lst, const void* const data)
 {
   // could contain an internal iterator ??
   
@@ -106,7 +106,7 @@ int list_push_back(list* lst, const void* const data)
   
   node* n = malloc(sizeof(struct _node));
   if (n == NULL) {
-	  return 1;  // fail
+	  return ERR_FAILURE;  // fail
   }
   else {
 	  n->data = (void*)data;
@@ -120,7 +120,7 @@ int list_push_back(list* lst, const void* const data)
 	  
 	  ++lst->size;
 	  
-	  return 0;
+	  return ERR_SUCCESS;
   }
   else {
 	n->previous = lst->tail->previous;
@@ -130,11 +130,11 @@ int list_push_back(list* lst, const void* const data)
 	
 	++lst->size;
 	
-	return 0;  // success
+	return ERR_SUCCESS;  // success
   }
 }
 
-int list_push_front(list* lst, const void* const data)
+err_code list_push_front(list* lst, const void* const data)
 {
   assert(lst->head != NULL);
   assert(lst->tail != NULL);; 
@@ -144,7 +144,7 @@ int list_push_front(list* lst, const void* const data)
   struct _node* temp = malloc(sizeof(struct _node));
   
   if (temp == NULL) {
-	  return 1;  // fail
+	  return ERR_FAILURE;  // fail
   }
   else {
 	// point the data pointer at the data
@@ -157,7 +157,7 @@ int list_push_front(list* lst, const void* const data)
 	  lst->tail->previous = temp;
 	  temp->previous = lst->head;
 	  ++lst->size;
-	  return 0; // success
+	  return ERR_SUCCESS; // success
   }
   else {
 	node* t = lst->head->next;
@@ -166,7 +166,7 @@ int list_push_front(list* lst, const void* const data)
     temp->previous = lst->head;
     lst->head->next = temp;
     ++lst->size;
-    return 0; // success
+    return ERR_SUCCESS; // success
   }
 
 }

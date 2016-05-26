@@ -3,13 +3,10 @@
 #define QUEUE_H
 
 #include "list.h"
-/* 
 
-	Typical FIFO queue.
-	The underlying implementation is a doubly linked list
+#include "error.h"
 
-	-- GB
-*/
+
 
 struct _queue {
 	list lst_queue;
@@ -27,7 +24,7 @@ extern void* queue_front(const queue*);
 extern void* queue_back(const queue*);
 
 /* add element to the rear of the queue - returns 0 on sucess, -1 on failure */
-extern int queue_push(queue*, const void* const);
+extern err_code queue_push(queue*, const void* const);
 
 /* removes and deletes element from the front of the queue - returns 0 on
    success, -1 on failure */

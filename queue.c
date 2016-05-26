@@ -1,6 +1,8 @@
 
 #include "queue.h"
 
+#include "error.h"
+
 int queue_init(queue* q) {
 	list lst;
 	if (list_init(&lst) == 1) {
@@ -21,7 +23,7 @@ void* queue_back(const queue* q) {
 	return list_get_rear(&q->lst_queue);
 }
 
-int queue_push(queue* q, const void* const data) {
+err_code queue_push(queue* q, const void* const data) {
 	return list_push_back(&q->lst_queue, data);
 	
 }

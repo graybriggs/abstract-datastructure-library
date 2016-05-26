@@ -9,6 +9,6 @@ enum _config_error {
 
 };
 
-typedef config_error error_t;
+typedef enum config_error err_code;
 
 #endif

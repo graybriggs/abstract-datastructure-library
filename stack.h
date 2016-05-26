@@ -5,6 +5,8 @@
 #include <stdint.h>
 #include <assert.h>
 
+#include "error.h"
+
 #define S_STACK_DEFAULT 10
 
 typedef struct _stack {
@@ -17,8 +19,8 @@ typedef struct _stack {
 } stack;
 
 
-extern int stack_init(stack*);
-extern int stack_push(stack*, void*);
+extern err_code stack_init(stack*);
+extern err_code stack_push(stack*, void*);
 extern void stack_pop(stack*);
 extern void* stack_top(stack*);
 extern void stack_delete(stack*);

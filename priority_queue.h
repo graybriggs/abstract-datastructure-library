@@ -11,8 +11,8 @@ struct _priority_queue {
 
 typedef _priority_queue pq;
 
-error_t pq_create(pq*);
-error_t pq_insert(pq*, void* data);
+err_code pq_create(pq*);
+err_code pq_insert(pq*, void* data);
 void* pq_top(pq*);
 void* remove_top(pq*);
 
