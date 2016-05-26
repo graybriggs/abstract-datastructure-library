@@ -9,7 +9,7 @@ struct _priority_queue {
 
 };
 
-typedef _priority_queue pq;
+typedef struct _priority_queue pq;
 
 err_code pq_create(pq*);
 err_code pq_insert(pq*, void* data);
