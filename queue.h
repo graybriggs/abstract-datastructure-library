@@ -14,8 +14,7 @@ struct _queue {
 
 typedef struct _queue queue;
 
-/* init queue - returns 0 on success, -1 on fail */
-extern int queue_init(queue*);
+extern err_code  queue_init(queue*);
 
 /* gets front element of queue - returns NULL if queue is empty or on failure */
 extern void* queue_front(const queue*);

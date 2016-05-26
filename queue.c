@@ -3,7 +3,7 @@
 
 #include "error.h"
 
-int queue_init(queue* q) {
+err_code queue_init(queue* q) {
 	list lst;
 	if (list_init(&lst) == 1) {
 		return 1;
