@@ -1,9 +1,0 @@
-
-UID_RES = $(shell whoami)
-
-test:
-	ifeq (UID_RES, "root")
-		echo "hi"
-	else
-		echo "no"
-	endif
