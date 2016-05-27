@@ -4,7 +4,7 @@
 enum _config_error {
 
   ERR_SUCCESS = 0,
-  ERR_FAILURE = 1;
+  ERR_FAILURE = 1,
   // .. to do
 
 };
